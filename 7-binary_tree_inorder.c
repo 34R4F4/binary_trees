@@ -11,7 +11,7 @@ if (!tree || !func)
 	return;
 
 /* Create a stack to hold the nodes */
-const binary_tree_t **stack = malloc(sizeof(binary_tree_t *) * 1000);
+const binary_tree_t **stack = malloc(sizeof(binary_tree_t *) * 100);
 /*size as needed */
 
 if (stack == NULL)
