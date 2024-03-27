@@ -15,7 +15,7 @@ if (!tree)
 
 /* If the node is a leaf (both children are NULL), return 1 */
 if (tree->left == NULL && tree->right == NULL)
-	return 1;
+	return (1);
 
 /* Recursively count the leaves in the left and right subtrees */
 size_t left_leaves = binary_tree_leaves(tree->left);
