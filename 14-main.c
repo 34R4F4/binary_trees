@@ -31,4 +31,3 @@ int main(void)
     printf("Balance of %d: %+d\n", root->left->left->right->n, balance);
     return (0);
 }
-
