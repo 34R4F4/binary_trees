@@ -1,5 +1,4 @@
 #include "binary_trees.h"
-
 /**
  * bst_insert - Inserts nodes to create a Binary Search Tree (BST).
  * @tree: Pointer to the root node of the BST.
@@ -13,7 +12,6 @@ bst_t *bst_insert(bst_t **tree, int value)
 
 	if (tree == NULL)
 		return (NULL);
-
 	if (*tree == NULL)
 	{
 		/* Create a new node and assign it as the root */
@@ -30,8 +28,7 @@ bst_t *bst_insert(bst_t **tree, int value)
 			if (current_node->left)
 				new_node = bst_insert(&current_node->left, value);
 			else
-			{
-				/* Create a new left child node */
+			{	/* Create a new left child node */
 				binary_node = binary_tree_node((binary_tree_t *)current_node, value);
 				new_node = current_node->left = (bst_t *)binary_node;
 			}
@@ -41,8 +38,7 @@ bst_t *bst_insert(bst_t **tree, int value)
 			if (current_node->right)
 				new_node = bst_insert(&current_node->right, value);
 			else
-			{
-				/* Create a new right child node */
+			{	/* Create a new right child node */
 				binary_node = binary_tree_node((binary_tree_t *)current_node, value);
 				new_node = current_node->right = (bst_t *)binary_node;
 			}
@@ -50,6 +46,5 @@ bst_t *bst_insert(bst_t **tree, int value)
 		else
 			return (NULL);
 	}
-
 	return (new_node);
 }
