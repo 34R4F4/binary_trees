@@ -9,10 +9,13 @@
  */
 bst_t *array_to_bst_recursive(int *array, int start, int end)
 {
+	int mid;
+
+
 	if (start > end)
 		return (NULL);
 
-	int mid = (start + end) / 2;
+	mid = (start + end) / 2;
 
 	bst_t *root = binary_tree_node(NULL, array[mid]);
 
