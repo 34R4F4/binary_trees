@@ -35,4 +35,3 @@ int main(void)
 	binary_tree_delete(tree);
 	return (0);
 }
-
