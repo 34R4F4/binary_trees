@@ -1,7 +1,8 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_height_b - Measures the height of a binary tree (for a balanced tree)
+ * binary_tree_height_b - Measures the height of a binary tree
+ *	(for a balanced tree)
  * @tree: Pointer to the root node of the tree
  * Return: The height of the tree
  */
