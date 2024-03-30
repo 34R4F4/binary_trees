@@ -1,14 +1,16 @@
 #include "binary_trees.h"
 
 /**
- * create_avl_from_sorted_array - Recursively creates an AVL tree from a sorted array.
+ * create_avl_from_sorted_array - Recursively creates an AVL tree
+ *	from a sorted array.
  * @parent: Parent node of the current node being created.
  * @array: Sorted array.
  * @start: Starting index of the subarray.
  * @end: Ending index of the subarray.
  * Return: Pointer to the root of the AVL tree.
  */
-avl_t *create_avl_from_sorted_array(avl_t *parent, int *array, int start, int end)
+avl_t *create_avl_from_sorted_array(
+		avl_t *parent, int *array, int start, int end)
 {
 	avl_t *root;
 	int mid;
