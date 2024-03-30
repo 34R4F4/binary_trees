@@ -25,6 +25,21 @@ typedef struct binary_tree_s
 	struct binary_tree_s *left;
 	struct binary_tree_s *right;
 } binary_tree_t;
+/*----------101------------*/
+/**
+ * struct link_s - structure for advanced tasks
+ *
+ * @n: depth of node specified
+ * @node: node of tree to store
+ * @next: next node of the linked list
+ */
+typedef struct link_s
+{
+	size_t n;
+	struct binary_tree_s const *node;
+	struct link_s *next;
+} link_t;
+/*-------------------------*/
 
 /* -- Binary Search Tree --*/
 typedef struct binary_tree_s bst_t;
