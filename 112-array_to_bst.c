@@ -10,18 +10,19 @@
 bst_t *array_to_bst_recursive(int *array, int start, int end)
 {
 	if (start > end)
-		return NULL;
+		return (NULL);
 
 	int mid = (start + end) / 2;
 
 	bst_t *root = binary_tree_node(NULL, array[mid]);
+
 	if (root == NULL)
-		return NULL;
+		return (NULL);
 
 	root->left = array_to_bst_recursive(array, start, mid - 1);
 	root->right = array_to_bst_recursive(array, mid + 1, end);
 
-	return root;
+	return (root);
 }
 
 /**
@@ -33,7 +34,7 @@ bst_t *array_to_bst_recursive(int *array, int start, int end)
 bst_t *array_to_bst(int *array, size_t size)
 {
 	if (array == NULL || size == 0)
-		return NULL;
+		return (NULL);
 
 	/* Sort the array (you can use any sorting algorithm here) */
 	/* For simplicity, we'll use bubble sort in this example */
@@ -44,6 +45,7 @@ bst_t *array_to_bst(int *array, size_t size)
 			if (array[j] > array[j + 1])
 			{
 				int temp = array[j];
+
 				array[j] = array[j + 1];
 				array[j + 1] = temp;
 			}
@@ -51,5 +53,5 @@ bst_t *array_to_bst(int *array, size_t size)
 	}
 
 	/* Build the BST recursively */
-	return array_to_bst_recursive(array, 0, size - 1);
+	return (array_to_bst_recursive(array, 0, size - 1));
 }
