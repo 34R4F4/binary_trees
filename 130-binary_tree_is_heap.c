@@ -1,77 +1,101 @@
 #include "binary_trees.h"
 
+size_t BT_size(const binary_tree_t *tree);
+heap_t *find_parent(heap_t *root, size_t number);
+heap_t *keep_max(heap_t *new, heap_t *parent)
+
 /**
- * binary_tree_is_heap - Checks if a binary tree is a valid Max Binary Heap
- *
- * @tree: Pointer to the root node of the tree to check
- *
- * Return: 1 if the tree is a valid Max Binary Heap, 0 otherwise
+ * heap_insert - Insert a value into a max binary heap
+ * @tree: Double pointer to the root of the heap
+ * @value: Value to insert
+ * Return: Pointer to the created node
  */
-int binary_tree_is_heap(const binary_tree_t *tree)
+heap_t *heap_insert(heap_t **tree, int value)
 {
+    size_t size;
+    int doswap = 1;
+    heap_t *new, *parent;
+
     if (tree == NULL)
-        return (0);
+        return (NULL);
 
-    /* Check if the tree is a complete binary tree */
-    if (!is_complete_tree(tree, 0, binary_tree_size(tree)))
-        return (0);
+    if (*tree == NULL)
+    {
+        new = binary_tree_node(NULL, value);
+        *tree = new;
+        return (new);
+    }
 
-    /* Check if the tree satisfies the Max Heap property */
-    return (is_max_heap(tree));
+    size = BT_size(*tree);
+    parent = find_parent(*tree, (size - 1) / 2);
+    new = binary_tree_node(parent, value);
+    if (new == NULL)
+        return (NULL);
+
+    if (size % 2 == 1)
+        parent->left = new;
+    else
+        parent->right = new;
+
+    while (doswap == 1 && parent != NULL)
+    {
+        if (parent->n >= new->n)
+            doswap = 0;
+        else
+        {
+            new = keep_max(new, parent);
+            parent = new->parent;
+        }
+    }
+
+    return (new);
 }
 
 /**
- * binary_tree_size - Measures the size of a binary tree
- *
+ * BT_size - Measure the size of a binary tree
  * @tree: Pointer to the root of the tree
- *
  * Return: Size of the tree
  */
-size_t binary_tree_size(const binary_tree_t *tree)
+size_t BT_size(const binary_tree_t *tree)
 {
     if (tree == NULL)
         return (0);
-    return (1 + binary_tree_size(tree->left) + binary_tree_size(tree->right));
+    return (1 + BT_size(tree->left) + BT_size(tree->right));
 }
 
 /**
- * is_complete_tree - Checks if a binary tree is complete
- *
- * @tree: Pointer to the root of the tree
- * @index: Index of the current node
- * @size: Size of the tree
- *
- * Return: 1 if the tree is complete, 0 otherwise
+ * find_parent - Find the parent node in a binary tree
+ * @root: Pointer to the root of the tree
+ * @number: Index of the parent node to find
+ * Return: Pointer to the parent node
  */
-int is_complete_tree(const binary_tree_t *tree, size_t index, size_t size)
+heap_t *find_parent(heap_t *root, size_t number)
 {
-    if (tree == NULL)
-        return (1);
+    size_t parentn, dir;
 
-    if (index >= size)
-        return (0);
+    if (number == 0)
+        return (root);
 
-    return (is_complete_tree(tree->left, 2 * index + 1, size) &&
-            is_complete_tree(tree->right, 2 * index + 2, size));
+    parentn = (number - 1) / 2;
+    dir = (number - 1) % 2;
+
+    if (dir == 0)
+        return (find_parent(root, parentn)->left);
+    return (find_parent(root, parentn)->right);
 }
 
 /**
- * is_max_heap - Checks if a binary tree satisfies the Max Heap property
- *
- * @tree: Pointer to the root of the tree
- *
- * Return: 1 if the tree satisfies the Max Heap property, 0 otherwise
+ * keep_max - Swap nodes to maintain the max heap property
+ * @new: Pointer to the new node
+ * @parent: Pointer to the parent node
+ * Return: Pointer to the parent node
  */
-int is_max_heap(const binary_tree_t *tree)
+heap_t *keep_max(heap_t *new, heap_t *parent)
 {
-    if (tree == NULL)
-        return (1);
+    int tmp;
 
-    /* Check if the value at the root is greater than or equal to the values of its children */
-    if ((tree->left && tree->n < tree->left->n) ||
-        (tree->right && tree->n < tree->right->n))
-        return (0);
-
-    /* Recursively check the Max Heap property for left and right subtrees */
-    return (is_max_heap(tree->left) && is_max_heap(tree->right));
+    tmp = new->n;
+    new->n = parent->n;
+    parent->n = tmp;
+    return (parent);
 }
