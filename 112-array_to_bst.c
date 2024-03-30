@@ -13,7 +13,7 @@ bst_t *array_to_bst(int *array, size_t size)
 
 	if (size == 0)
 	{
-		return NULL;
+		return (NULL);
 	}
 
 	for (i = 0; i < size; i++)
@@ -21,5 +21,5 @@ bst_t *array_to_bst(int *array, size_t size)
 		bst_insert(&root, array[i]);
 	}
 
-	return root;
+	return (root);
 }
